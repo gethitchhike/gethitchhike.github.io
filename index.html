@@ -1,51 +1,198 @@
-<!DOCTYPE HTML>
 <!--
-	Eventually by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Hitchhike</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/logo.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	</head>
-	<body>
+<head>
+<title>Get Hitchhike</title>
+<link href="./css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="./css/logo.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="./js/jquery.min.js"></script>
+<script src="./js/typed.min.js"></script>
+<!---- start-smoth-scrolling---->
+<script type="text/javascript" src="./js/move-top.js"></script>
+<script type="text/javascript" src="./js/easing.js"></script>
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+		</script>
+<!---- start-smoth-scrolling---->
+<!-- Custom Theme files -->
+<link href="./css/theme-style.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</script>
+<!----font-Awesome----->
+<link rel="stylesheet" href="./fonts/css/font-awesome.min.css">
+<!----font-Awesome----->
+<!----webfonts---->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
+<!----//webfonts---->
+<!----start-top-nav-script---->
+		<script>
+			$(function() {
+				var pull 		= $('#pull');
+					menu 		= $('nav ul');
+					menuHeight	= menu.height();
+				$(pull).on('click', function(e) {
+					e.preventDefault();
+					menu.slideToggle();
+				});
+				$(window).resize(function(){
+	        		var w = $(window).width();
+	        		if(w > 320 && menu.is(':hidden')) {
+	        			menu.removeAttr('style');
+	        		}
+	    		});
+			});
+		</script>
+		<!----//End-top-nav-script---->
+</head>
+<body>
+		<!----start-container---->
+			<!----start-header---->
+		<div id="home" class="header scroll">
+			<div class="container">
+				<!---- start-logo---->
+				<div class="logo">
+					<h1 class="logoContainer"><span class="logoText">H<span>.</span></span></h1>
+				</div>
+				<!---- //End-logo---->
+				<!----start-top-nav---->
+				 <nav class="top-nav">
+					<ul class="top-nav">
+						<li class="active"><a href="#home" class="scroll">Home</a></li>
+						<li class="page-scroll"><a href="#fea" class="scroll">Features</a></li>
+						<li class="page-scroll"><a href="#work" class="scroll">Workflow</a></li>
+					</ul>
+					<a href="#" id="pull"><img src="./images/nav-icon.png" title="menu" /></a>
+				</nav>
+				<div class="clearfix"> </div>
+				<div class="slide-text text-center">
+					<h1>Hitchhike</h1>
+					<p><span class="typed-pre">The CMS for </span> <span id="typed"></span></p>
+					<code>
+					git clone https://github.com/gethitchhike/hitchhike.git
+					&& cd Hitchhike/ &&  ./hm.php init
+					</code>
+				</div>
+				<!----//End-top-nav---->
+			</div>
+		</div>
+		<div id="fea" class="features">
+			<div class="container">
+				<div class="head text-center">
+					<h3><span> </span> Features</h3>
+					<p>Hitchhike is a modular, blog oriented flat file CMS.</p>
+				</div>
+				<!---- start-features-grids---->
+				<div class="features-grids text-center">
+					<div class="col-md-4 features-grid">
+						<span class="fea-icon1"><i class="fa fa-fast-forward"> </i> </span>
+						<h3><a href="#">Fast installation</a></h3>
+						<p>A complete installation within 60 seconds</p>
+					</div>
+					<div class="col-md-4 features-grid">
+						<span class="fea-icon1"><i class="fa fa-puzzle-piece"> </i> </span>
+						<h3><a href="#">Modular</a></h3>
+						<p>Only use the features you want</p>
+					</div>
+					<div class="col-md-4 features-grid">
+						<span class="fea-icon1"><i class="fa fa-code-fork"> </i> </span>
+						<h3><a href="#">Use whatever to compose</a></h3>
+						<p>Use your favorite editor to compose content</p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<!---- //End-features-grids---->
+			</div>
+		</div>
+		<div id="work" class="work">
+			<div class="container">
+				<div class="head text-center work-head">
+					<h3><span> </span> Workflow</h3>
+					<p> </p>
+				</div>
+				<div class="work-grids">
+					<div class="col-md-4 work-grid">
+						<span class="col-md-5 w-icon"> <i class="fa fa-terminal"> </i></span>
+						<div class="col-md-7 work-info">
+							<h4>Manage</h4>
+							<p>Use <code>hm.php createpost "hello world"</code> to create a post</p>
+						</div>
+					</div>
+					<div class="col-md-4 work-grid center-work-grid">
+						<span class="col-md-5 w-icon"> <i class="fa fa-pencil"> </i></span>
+						<div class="col-md-7 work-info">
+							<h4>Compose</h4>
+							<p>Use your favorite text editor to compose and publish your content.</p>
+						</div>
+					</div>
+					<div class="col-md-4 work-grid">
+						<span class="col-md-5 w-icon"><i class="fa fa-puzzle-piece"> </i> </span>
+						<div class="col-md-7 work-info">
+							<h4>Extend</h4>
+							<script>
+								$.get( "http://packages.0fury.de/?/list/", function( data ) {
+									var json = $.parseJSON(data);
+									$("#count").text(json.length);
+								});
+							</script>
+							<p>Use <code>hm.php install &lt;package&gt;</code> to get new features. You can choose among <i id="count"></i> packages.</p>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+					<div class="work-map">
+						<span> </span>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="clearfix"> </div>
+		<!----//End-portfolio----->
+		<!----start-footer---->
+		<div class="footer">
+			<div class="container">
+				<div class="footer-left">
+					<p>Mabur Template by <a href="http://w3layouts.com/">W3layouts</a></p>
 
-		<!-- Header -->
-			<header id="header">
-				<h1><span class="logo">H<span>.</span></span></h1>
-				<p>A new approach</p>
-
-			</header>
-			<header>
-				<h2>Milestone 3 release is close</h2>
-			</header>
-		<!-- Signup Form -->
-			<!--<form id="signup-form" method="post" action="#">
-				<input type="email" name="email" id="email" placeholder="Email Address" />
-				<input type="submit" value="Sign Up" />
-			</form>-->
-
-		<!-- Footer -->
-			<footer id="footer">
-				<ul class="icons">
-					<li><a href="https://twitter.com/0fury" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="https://github.com/gethitchhike/" class="icon fa-github"><span class="label">GitHub</span></a></li>					
-				</ul>
-				<ul class="copyright">
-					<li>&copy; 2015 - 2016 Squarerootfury</li><li>Credits: <a href="http://html5up.net">HTML5 UP</a></li>
-				</ul>
-			</footer>
-
-		<!-- Scripts -->
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-
+				</div>
+				<script type="text/javascript">
+				$(document).ready(function() {
+					
+					var defaults = {
+			  			containerID: 'toTop', // fading element id
+						containerHoverID: 'toTopHover', // fading element hover id
+						scrollSpeed: 1200,
+						easingType: 'linear' 
+			 		};
+					
+					
+					$().UItoTop({ easingType: 'easeOutQuart' });
+					$("#typed").typed({
+			        strings: ["developers.","creators.","shell users.","you."],
+			        typeSpeed: 100
+			    });
+					
+				});
+				
+			</script>
+				<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+			</div>
+		</div>
+		<!----//End-footer---->
+		<!----//End-container---->
 	</body>
 </html>
+
