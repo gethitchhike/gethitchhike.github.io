@@ -38,6 +38,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Gentium+Book+Basic' rel='stylesheet' type='text/css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.3/vue-resource.min.js"></script>
 <!----//webfonts---->
 <!----start-top-nav-script---->
 		<script>
@@ -75,6 +77,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<li class="active"><a href="#home" class="scroll">Home</a></li>
 						<li class="page-scroll"><a href="#fea" class="scroll">Features</a></li>
 						<li class="page-scroll"><a href="#work" class="scroll">Workflow</a></li>
+						<li class="page-scroll"><a href="#pkg" class="scroll">Packages</a></li>
 					</ul>
 					<a href="#" id="pull"><img src="./images/nav-icon.png" title="menu" /></a>
 				</nav>
@@ -144,7 +147,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<div class="col-md-7 work-info">
 							<h4>Extend</h4>
 							<script>
-								$.get( "http://packages.0fury.de/?/list/", function( data ) {
+								$.get( "https://packages.0fury.de/?/list/", function( data ) {
 									var json = $.parseJSON(data);
 									$("#count").text(json.length);
 								});
@@ -158,6 +161,145 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</div>
 			</div>
+		</div>
+		<div id="pkg" class="pkg">
+			<div class="container">				
+				<div class="col-lg-4">
+						<div class="head text-center">
+							<h3><span> </span> Trending right now</h3>
+						</div>
+						<span style = "font-size: {{ result.Factor }}em" v-for="(key,result) in trending">
+							<a  class="{{ key }}"  href="#{{ key }}" v-on:click="selectPackage($event)">
+								{{ key }} ({{ result.Downloads }})
+							</a>
+						</span>
+				</div>	
+				<div class="col-lg-4">
+						<div class="head text-center">
+							<h3><span> </span> Search</h3>
+							<p>{{ count }} packages available</p>
+						</div>	
+						<input v-model="search" class="form-control">
+						<ul class="no-bullet list-group  search-results">
+							
+								<li v-for="result in results" class="list-group-item">
+									<a  class="{{ result.Name }}"  href="#{{ result.Name }}" v-on:click="selectPackage($event)">
+									<i class="fa fa-puzzle-piece" aria-hidden="true"></i> {{ result.Name }}								
+									<span class="badge"><i class="fa fa-download" aria-hidden="true"></i> {{ result.Downloads }}</span>
+									</a>
+								<li>
+							
+						</ul>
+				</div>
+				<div class="col-lg-4">
+					<div class="info" v-if="this.selectedPackage !== null">
+						<div class="head text-center">
+							<h3><span> </span>Package {{ selectedPackage.Name }} {{ selectedPackage.Version }} </h3>
+						</div>					
+						<p>
+							{{ selectedPackage.Description }}
+						</p>
+						<code style="text-align:center">
+							hm.php install {{ selectedPackage.Name }}							
+						</code>
+						<span class="badge badge-tag" v-for="tag in selectedPackage.Tags">#{{ tag }}</span>
+					</div>
+				</div>	
+			</div>
+			<script>
+				Vue.http.options.emulateJSON = true;    
+				vm = new Vue({
+					el: '.pkg',
+					data: {
+						count: 5,
+						packages:null,
+						search:"",
+						packageInfos:[],
+						trending:null,
+						selectedPackage:null
+					},
+					created:function(){
+							this.getPackages();	
+							this.getTrending();			
+					},
+					methods:{
+						selectPackage:function(event){
+							event.preventDefault();
+							var targetPackage = event.target.className;
+							for(var i=0;i<this.packageInfos.length;i++){
+								if (this.packageInfos[i].Name === targetPackage){
+									this.selectedPackage =this.packageInfos[i];
+									var d = new Date(this.selectedPackage.LastModified);
+									
+									break;
+								}
+							}
+						},
+						getPackages:function(){
+							this.$http.get("https://packages.0fury.de/?/list/", {}).then(
+								function(result) {
+									packages = JSON.parse(result.body);
+									this.count = packages.length;
+									for(var i=0;i<packages.length;i++){
+										this.$http.get("https://packages.0fury.de/?/package/"+packages[i]+"/", {}).then(
+											function(result) {
+											
+												var info = JSON.parse(result.body);
+												this.packageInfos.push(info);
+											},
+											function (error){
+												console.log(error);
+											}
+										);		
+									}
+								},
+								function (error){
+									console.log(error);
+								});	
+						},
+						getTrending:function(){
+							this.$http.get("https://packages.0fury.de/?/trending/", {}).then(
+								function(result) {
+									this.trending = JSON.parse(result.body);
+									var sum = 0;
+									for(var i=0;i<this.trending.length;i++){
+										sum += this.trending[i].Downloads;
+									}
+									var max = 0;
+									for (var key in this.trending) {
+										var obj = this.trending[key];
+										sum += obj.Downloads;
+										if (obj.Downloads > max){
+											max = obj.Downloads;
+										}
+									}
+									for (var key in this.trending) {
+										var obj = this.trending[key];
+										obj.Factor = 1.1+(obj.Downloads/max);
+									}
+
+								},
+								function (error){
+									console.log(error);
+								});	
+						}
+					},
+					computed:{
+						results:function(){
+							var matches = [];
+							if (this.search !== ""){
+								var needle = this.search.toLowerCase();
+								for(var i=0;i<this.packageInfos.length;i++){
+									if (this.packageInfos[i].Name.indexOf(needle) !== -1 || this.packageInfos[i].Description.indexOf(needle) !== -1){
+										matches.push(this.packageInfos[i]);
+									}
+								}
+							}
+							return matches;
+						}
+					}
+				});
+			</script>
 		</div>
 		</div>
 		<div class="clearfix"> </div>

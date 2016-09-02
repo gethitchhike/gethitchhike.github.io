@@ -1331,3 +1331,15 @@ div.col-md-6.test-monial-time-line-left {
 	margin-top: 1em;
 }
 }
+.pkg{
+	padding:5em 0;
+}
+.no-bullet{
+	list-style-type: none;
+}
+.search-results{
+	padding-top:1em;
+}
+.badge-tag{
+	margin-right:1em;
+}
